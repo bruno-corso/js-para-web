@@ -1,14 +1,22 @@
-function tocaSom (idElementoAudio){
-    document.querySelector(idElementoAudio).play();
+function tocaSom (seletorAudio){
+
+    const elemento = document.querySelector(seletorAudio);
+
+    if(elemento === null){
+        console.log('Elemento nulo:' + elemento.localName);
+    }
+    else{
+        elemento.play();
+    }
 }
 
 // traz todas tags que tem a classe "tecla" destro de uma lista chamada listaDeTeclas
 const listaDeTeclas = document.querySelectorAll('.tecla');
 
-let contador = 0;
+
 
 // looping que reconhece minhas teclas
-while(contador < listaDeTeclas.length) {
+for(let contador = 0; contador < listaDeTeclas.length; contador++) {
 
     const tecla = listaDeTeclas[contador];
 
@@ -20,7 +28,21 @@ while(contador < listaDeTeclas.length) {
         tocaSom(idAudio)
     }
 
-    contador = contador + 1;
+    tecla.onkeydown = function (evento) {
+        
+        if(evento.code === 'Space' || evento.code === "Enter"){
+            tecla.classList.add('ativa');
+        }
+ 
+    }
+
+    tecla.onkeyup = function (evento) {
+        console.log(evento.code)
+        if(evento.code === 'Space' || evento.code === "Enter"){
+            tecla.classList.remove('ativa');
+        }
+ 
+    }
 
     //console.log(contador + " " + idAudio);
 } 
